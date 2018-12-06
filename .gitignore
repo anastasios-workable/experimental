@@ -1,0 +1,12 @@
+build/
+dist/
+node_modules/
+coverage/
+*.log
+.debug-oneflow
+test.results.*.xml
+.nc_history
+.env
+.tmp/
+.DS_Store
+.pid

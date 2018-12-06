@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "target": "es2017",
+    "module": "commonjs",
+    "lib": ["es2017"],
+    "rootDir": "../src",
+    "outDir": "../dist",
+    "sourceRoot": "../src",
+    "sourceMap": true,
+    "experimentalDecorators": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "noUnusedLocals": true,
+    "pretty": true,
+    "skipLibCheck": true,
+    "baseUrl": ".",
+    "noEmitOnError": true,
+    "paths": {
+      "*": ["./*"]
+    }
+  },
+  "include": ["**/*.tsx", "**/*.ts", "**/*.d.ts"],
+  "exclude": ["node_modules"]
+}
