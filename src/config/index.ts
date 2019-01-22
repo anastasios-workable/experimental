@@ -3,8 +3,8 @@ import {KafkaStreamsConfig} from 'kafka-streams';
 export default {
   noptions: {
     'metadata.broker.list': 'localhost:9092',
-    'group.id': 'kafka-streams-test-native',
-    'client.id': 'kafka-streams-test-name-native',
+    'group.id': 'stress-test',
+    'client.id': 'stress-test',
     event_cb: true,
     'compression.codec': 'snappy',
     'api.version.request': true,
@@ -28,16 +28,16 @@ export default {
     'fetch.wait.max.ms': 1000,
     'queue.buffering.max.ms': 1000,
 
-    'batch.num.messages': 10000
+    'batch.num.messages': 1000
   },
   tconf: {
     'auto.offset.reset': 'earliest',
     'request.required.acks': 1
   },
   batchOptions: {
-    batchSize: 5,
+    batchSize: 50,
     commitEveryNBatch: 1,
-    concurrency: 1,
+    concurrency: 50,
     commitSync: false,
     noBatchCommits: false
   }

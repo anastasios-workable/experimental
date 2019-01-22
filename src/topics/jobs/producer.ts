@@ -1,16 +1,30 @@
 import 'source-map-support/register';
 import 'tsconfig-paths/register';
 import create from 'create';
-import {Job} from 'schemas';
+import schema from 'schemas/job';
+import * as avro from 'avsc';
 
-const stream = create();
+const type = avro.Type.forSchema(schema as any);
 
-stream.to('jobs.table');
+for (let i =  0; i < 10; i++) {
+  const stream = create();
 
-stream.start().then(() =>
-  setInterval(() => {
-    const message = Job.random();
-    console.log('[PRODUCER]', message);
-    stream.writeToStream(JSON.stringify(message));
-  }, 500)
-);
+  stream.to('json.jobs', 32, 'buffer');
+
+  stream.start().then(() =>
+    setInterval(() => {
+      const message: any = type.random();
+      const id = Math.floor(Math.random() * 1000);
+      message.job_id = id;
+      // A console.log('[PRODUCER]:', 'with id', id);
+      const event = {
+          value: message,
+          key: id
+      };
+
+      stream.writeToStream(event);
+    }, 10)
+  );
+}
+
+

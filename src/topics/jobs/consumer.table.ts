@@ -1,23 +1,25 @@
-import 'source-map-support/register';
-import 'tsconfig-paths/register';
-import {KafkaStreams} from 'kafka-streams';
-import config from 'config';
+// import 'source-map-support/register';
+// import 'tsconfig-paths/register';
+// import {KafkaStreams} from 'kafka-streams';
+// import config from 'config';
 
-const table = new KafkaStreams(config).getKTable('jobs.table', (message: any) => ({
-  key: message.key,
-  value: JSON.parse(message.value.toString('utf8'))
-}));
+// const table = new KafkaStreams(config).getKTable('jobs', (message: any) => {
+//   const job = JSON.parse(message.value.toString('utf8'));
+//   return {
+//     key: job.id,
+//     value: job
+//   };
+// });
 
-table.consumeUntilCount(10, () => {
-  table.getTable();
+// table.to('jobs.table');
 
-  table.forEach(row => {
-    console.log(row);
-  });
+// table.atThroughput(10, () => {
+//   console.log('fetched 10 messages.');
 
-  table.replay();
-});
+//   (table.getTable() as Promise<any>).then(_ => console.log(_));
+//   table.replay();
+// });
 
-table.atThroughput(50, () => console.log('consumed 50 messages.'));
+// table.drain();
 
-table.start().then(() => console.log('[TABLE]', 'initialized'));
+// table.start().then(() => console.log('[TABLE]', 'initialized'));
