@@ -6,6 +6,11 @@ export default {
     'group.id': 'stress-test',
     'client.id': 'stress-test',
     event_cb: true,
+    debug: 'all',
+    log_level: 0,
+
+    'dr_cb': true,
+
     'compression.codec': 'snappy',
     'api.version.request': true,
 
