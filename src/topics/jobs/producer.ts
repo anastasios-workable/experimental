@@ -1,30 +1,36 @@
 import 'source-map-support/register';
 import 'tsconfig-paths/register';
 import create from 'create';
-import schema from 'schemas/job';
-import * as avro from 'avsc';
 
-const type = avro.Type.forSchema(schema as any);
-
-for (let i =  0; i < 10; i++) {
+(async () => {
   const stream = create();
+  await stream.to('jobs');
+  await stream.start();
 
-  stream.to('json.jobs', 32, 'buffer');
+  const id = 'banana'; // Or your favorite uuid.
 
-  stream.start().then(() =>
-    setInterval(() => {
-      const message: any = type.random();
-      const id = Math.floor(Math.random() * 1000);
-      message.job_id = id;
-      // A console.log('[PRODUCER]:', 'with id', id);
-      const event = {
-          value: message,
-          key: id
-      };
-
-      stream.writeToStream(event);
-    }, 10)
-  );
-}
-
-
+  stream.writeToStream({
+    key: id,
+    value: JSON.stringify({
+      id,
+      type: 'job',
+      attributes: {
+        id,
+        title: 'Banana Job',
+        shortcode: 'BANANA',
+        remote: false,
+        type: 'full',
+        description: '<b>Banana</b> job description',
+        benefits: '<b>Banana</b> job benefits',
+        requirements: '<b>Banana</b> job requirements',
+        location: {
+          country: 'Banana Country',
+          city: 'Banana City',
+          region: 'BA'
+        },
+        department: 'Agriculture',
+        published: Date.now()
+      }
+    })
+  });
+})();
