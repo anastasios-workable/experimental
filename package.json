@@ -18,7 +18,7 @@
     "avro": "^0.1.0",
     "avro-js": "^1.8.2",
     "avsc": "^5.4.10",
-    "axios": "^0.18.0",
+    "axios": "^0.18.1",
     "kafka-streams": "^4.11.0"
   },
   "devDependencies": {
